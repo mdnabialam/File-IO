@@ -1,0 +1,57 @@
+package com.log;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class CallCenterMain {
+	
+	public static void main(String[] args) {
+		
+		List<CallProgram> callPrograms= new ArrayList<>();
+		try (BufferedReader bufferedReader = new BufferedReader(new FileReader("N:\\Call\\call_log.txt"))){
+			String line;
+			while ((line=bufferedReader.readLine())!=null) {
+				String[] part=line.split(":");
+				int startTime=Integer.parseInt(part[0]);
+				int endTime = Integer.parseInt(part[1]);
+				
+				callPrograms.add(new CallProgram(startTime, true));
+				callPrograms.add(new CallProgram(endTime, false));
+			}	
+		}
+			catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return;
+		}
+		callPrograms.sort(Comparator.comparingInt(e -> e.time));
+			int maxSimuCalls=0;
+			int currentSimuCall =0;
+			int peakStartTime=0;
+			int peakEndTime=0;
+			
+			for(CallProgram callprogram :callPrograms) {
+				if(callprogram.start) {
+					currentSimuCall ++;
+					if(currentSimuCall > maxSimuCalls) {
+						maxSimuCalls=currentSimuCall;
+						peakStartTime=callprogram.time;
+					}
+				}
+				else {
+					if(currentSimuCall == maxSimuCalls) {
+						peakEndTime=callprogram.time;
+					}
+					currentSimuCall --;
+					
+				}
+			}
+			
+			System.out.println("The Peak Call is "+maxSimuCalls+"  Simultaneous  Call Between "+peakStartTime +" And "+ peakEndTime +" ");
+		
+	}
+
+}

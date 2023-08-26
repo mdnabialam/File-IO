@@ -1,0 +1,20 @@
+package com.log;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CallCenterMain {
+	
+	public static void main(String[] args) {
+		
+		List<CallProgram> callPrograms= new ArrayList<>();
+		try (BufferedReader bufferedReader = new BufferedReader(new FileReader("N:\\Call\\call_log.txt"))){
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+}

@@ -1,0 +1,7 @@
+package com.log;
+
+public class CallProgram {
+	int timestamp;
+	boolean start;
+	
+}

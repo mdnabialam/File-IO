@@ -1,0 +1,24 @@
+package test.com;
+/*
+Int a = {1,2,3,4,5,6,7,8,9,10}
+Int split = 3
+1,2,3
+4,5,6
+7,8,9
+10
+
+*/
+public class Array_progam {
+	public static void main(String[] args) {
+		int []a = {1,2,3,4,5,6,7,8,9,10};
+		int split=3;
+		int numArrays = (int) Math.ceil(double)a.length/split;
+		int [] []  spliArrays= new int[numArrays][split];
+		int startIndex=0;
+		for(int i=0; i< numArrays;i++) {
+			
+		}
+	}
+	
+	
+}

@@ -1,0 +1,11 @@
+package com.log;
+
+public class Call {
+		int start;
+		int end;
+		
+		public Call (int start, int end) {
+			this.start=start;
+			this.end=end;
+		}
+}

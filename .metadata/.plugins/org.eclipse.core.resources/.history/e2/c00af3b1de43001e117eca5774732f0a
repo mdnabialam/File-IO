@@ -1,0 +1,52 @@
+package com.tst;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class CallCenterPeakDetector {
+
+    public static void main(String[] args) {
+        String filename = "N:\\Call\\call_log.txt"; 
+        int[] callStarts = new int[864008234]; 
+        int[] callEnds = new int[864008234];
+
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                int start = Integer.parseInt(parts[0]);
+                int end = Integer.parseInt(parts[1]);
+
+                callStarts[start]++;
+                callEnds[end]++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        
+        int maxSimultaneousCalls = 0;
+        int currentSimultaneousCalls = 0;
+        int peakStartTime = 0;
+        for (int i = 0; i < 86400; i++) {
+            currentSimultaneousCalls += callStarts[i];
+            currentSimultaneousCalls -= callEnds[i];
+
+            if (currentSimultaneousCalls > maxSimultaneousCalls) {
+                maxSimultaneousCalls = currentSimultaneousCalls;
+                peakStartTime = i;
+            }
+        }
+
+        
+        int peakEndTime = peakStartTime;
+        while (callStarts[peakEndTime] > callEnds[peakEndTime]) {
+            peakEndTime++;
+        }
+
+        System.out.println("The peak for this call log is " + maxSimultaneousCalls + " simultaneous calls,");
+        System.out.println("that occurred between " + peakStartTime + " and " + peakEndTime + ".");
+    }
+}
